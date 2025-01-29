@@ -20,3 +20,18 @@ binance = ccxt.binance()
 
 needed_exchanges = [bingx, bitbank, bitfinex, bitget, bithumb, bitmart, bitmex, bitstamp, kucoin, binance]
 
+#List for exchanges where we will buy
+market_data_list_buy = []
+
+#List for exchanges where we will sell
+market_data_list_sell = []
+
+#Commission on purchase
+maker_fees = 0.001
+
+#Commission on sale
+take_fees = 0.001
+
+#The commission for transfer in the network is None, because CCXT does not provide the corresponding data
+transfer_fee_by_network = None
+
