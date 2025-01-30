@@ -76,6 +76,10 @@ def arb_oppotunities():
                         continue
 
 #Prompt function
+def prompt(buy_exchange, sell_exchange, buy_para, sell_para, buy_price, sell_price):
+    spread = str(spread_calculation(buy_price, sell_price))+'%'
+    if buy_price < sell_price:
+        print(f'---{buy_para}---\nBuy at: {buy_exchange}\nSell at: {sell_exchange}\nPurchase price in tokens: {buy_price}\nSelling price: {sell_price}\n--Spread: {spread}--\n')
 
 
 def spread_calculation(buy_price, sell_price):
