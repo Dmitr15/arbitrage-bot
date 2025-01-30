@@ -36,7 +36,7 @@ take_fees = 0.001
 transfer_fee_by_network = None
 #BreakLoops = False
 
-#Function for determining the difference in prices between exchanges
+#Arbitrage opportunity function
 def arb_oppotunities():
     BreakLoops = False
     for i in range(len(needed_exchanges)):
@@ -49,9 +49,7 @@ def arb_oppotunities():
                 market_data_list_buy.sort()
                 market_data_list_sell.sort()
             except Exception:
-                #print(buy_exchange, sell_exchange, 'fail with exchange', e)
                 continue
-
             for buy_para in range(len(market_data_list_buy)):
                 buy_a = market_data_list_buy[buy_para]
                 if ':' in buy_a:
@@ -61,7 +59,6 @@ def arb_oppotunities():
                     break
                 for sell_para in range(len(market_data_list_sell)):
                     if BreakLoops:
-                        #BreakLoops = False
                         break
                     sell_a = market_data_list_sell[sell_para]
                     str_a = str(sell_a)
@@ -70,18 +67,24 @@ def arb_oppotunities():
                     try:
                         if sell_a in market_data_list_buy:
                             index_buy = market_data_list_buy.index(str_a)
-                            #print(buy_para, sell_para, index_buy)
                             if buy_a != sell_a:
-                                print(buy_exchange, sell_exchange, market_data_list_buy[index_buy],
-                                    market_data_list_sell[sell_para],
-                                    buy_exchange.fetch_ticker(market_data_list_buy[index_buy])['last'],
+
+                                print(buy_exchange, sell_exchange, market_data_list_buy[index_buy], market_data_list_sell[sell_para], buy_exchange.fetch_ticker(market_data_list_buy[index_buy])['last'],
                                     sell_exchange.fetch_ticker(market_data_list_sell[sell_para])['last'])
                                 BreakLoops = True
-
                     except Exception:
-                        #print(buy_exchange, sell_exchange, buy_para, sell_para, 'Fail with token', e)
                         continue
 
+#Prompt function
+
+
+def spread_calculation(buy_price, sell_price):
+    if buy_price < sell_price:
+        spread = (sell_price/(buy_price-1))*100
+    else:
+        spread = (buy_price / (sell_price - 1)) * 100
+
+    return spread
 
 if __name__ == '__main__':
     arb_oppotunities()
