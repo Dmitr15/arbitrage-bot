@@ -68,7 +68,7 @@ def arb_oppotunities():
                         if sell_a in market_data_list_buy:
                             index_buy = market_data_list_buy.index(str_a)
                             if buy_a != sell_a:
-                                #prompt()
+                                prompt(buy_exchange, sell_exchange, market_data_list_buy[index_buy], market_data_list_sell[sell_para], buy_exchange.fetch_ticker(market_data_list_buy[index_buy])['last'], sell_exchange.fetch_ticker(market_data_list_sell[sell_para])['last'])
                                 # print(buy_exchange, sell_exchange, market_data_list_buy[index_buy], market_data_list_sell[sell_para], buy_exchange.fetch_ticker(market_data_list_buy[index_buy])['last'],
                                 #     sell_exchange.fetch_ticker(market_data_list_sell[sell_para])['last'])
 
@@ -80,18 +80,19 @@ def arb_oppotunities():
 def prompt(buy_exchange, sell_exchange, buy_para, sell_para, buy_price, sell_price):
     spread = str(spread_calculation(buy_price, sell_price))+'%'
     if buy_price < sell_price:
-        print(f'---{buy_para}---\nBuy at: {buy_exchange}\nSell at: {sell_exchange}\nPurchase price in tokens: {buy_price}\nSelling price: {sell_price}\n--Spread: {spread}--\n')
+        print(f'---{buy_para}---\nBuy at: {buy_exchange}\nSell at: {sell_exchange}\nPurchase price in tokens: {buy_price}\nSelling price in tokens: {sell_price}\n--Spread: {spread}--\n')
     else:
         print(f'---{buy_para}---\nBuy at: {sell_exchange}\nSell at: {buy_exchange}\nPurchase price in tokens: {sell_price}\nSelling price: {buy_price}\n--Spread: {spread}--\n')
 
 def spread_calculation(buy_price, sell_price):
     if buy_price < sell_price:
-        spread = (sell_price/(buy_price-1))*100
+        spread = ((sell_price - buy_price)/sell_price)*100
     else:
-        spread = (buy_price / (sell_price - 1)) * 100
+        spread = ((buy_price - sell_price) / sell_price) * 100
 
     if spread > MAKER_FEES:
         return spread-MAKER_FEES
+
 
 if __name__ == '__main__':
     arb_oppotunities()
