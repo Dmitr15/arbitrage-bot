@@ -27,10 +27,10 @@ market_data_list_buy = []
 market_data_list_sell = []
 
 #Commission on purchase
-maker_fees = 0.001
+MAKER_FEES=0.001
 
 #Commission on sale
-take_fees = 0.001
+TAKER_FEES=0.001
 
 #The commission for transfer in the network is None, because CCXT does not provide the corresponding data
 transfer_fee_by_network = None
@@ -84,7 +84,8 @@ def spread_calculation(buy_price, sell_price):
     else:
         spread = (buy_price / (sell_price - 1)) * 100
 
-    return spread
+    if spread > MAKER_FEES:
+        return spread-MAKER_FEES
 
 if __name__ == '__main__':
     arb_oppotunities()
