@@ -1,0 +1,7 @@
+ccxt
+pybit
+python-binance
+requests
+kucoin-python
+pybit
+pandas
