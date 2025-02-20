@@ -1,4 +1,4 @@
-A prototype of interexchange arbitrage bot.
+#A prototype of interexchange arbitrage bot.
 
 This bot scans a different crypto exchenges(with CCTX) and shows arbitrage appotunities i.e. cryptocurrency pairs(the lowest price to buy(exchenge, coin, price) and the the highst price to sell).
 
